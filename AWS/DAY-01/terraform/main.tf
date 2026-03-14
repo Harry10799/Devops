@@ -14,3 +14,7 @@ resource "local_file" "new_content_file" {
 }
 
 
+resource "local_file" "sample_file" {
+  content = var.new_var
+  filename = var.filename
+}
