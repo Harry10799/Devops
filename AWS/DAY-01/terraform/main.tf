@@ -18,3 +18,37 @@ resource "local_file" "sample_file" {
   content = var.new_var
   filename = var.filename
 }
+
+
+
+
+variable "files" {
+    default = ["file1.txt","file2.txt","file3.txt"]
+}
+
+
+resource "local_file" "eg" {
+  count = 3
+  filename = "file_${count.index}.txt"
+  content = "Tf example"
+}
+
+
+resource "local_file" "file" {
+    for_each = toset(var.files)
+    filename = each.value
+    content = "tf"
+}
+
+variable "environment" {
+  default = "DEV"
+}
+
+locals {
+  message=var.environment=="DEV" ? "DEVELOPMENT" : "PROD"
+}
+
+resource "local_file" "file_new" {
+  filename = "newtext.txt"
+  content = local.message
+}
