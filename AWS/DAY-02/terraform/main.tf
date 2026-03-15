@@ -50,13 +50,13 @@ resource "aws_security_group" "my_aws_security_gp" {
 
 resource "aws_instance" "my_aws_tf_instance" {
   key_name = aws_key_pair.my_key_pair.key_name
-  ami = "ami-0b6c6ebed2801a5cb"
+  ami = var.aws_ami_id
   security_groups = [aws_security_group.my_aws_security_gp.name]
   root_block_device {
     volume_size = 10
     volume_type = "gp3"
   }
-  instance_type = "t3.micro"
+  instance_type = var.aws_instance_type
   tags = {
     Name = "my_tf_ec2"
   }
